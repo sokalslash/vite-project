@@ -3,9 +3,26 @@ import Item from './item'
 import './App.css'
 
 function App() {
-  const initialTodos: string[] = ['read react documentation', 'reat vite documentation', 'do homework'];
+  function generateId(num: number): number {
+    return Math.random() + num;
+  }
 
-  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem('todos')) ?? initialTodos);
+  const initialTodos = [
+    {
+      id: generateId(1),
+      title: 'read react documentation',
+    },
+    {
+      id: generateId(2),
+      title: 'reat vite documentation',
+    },
+    {
+      id: generateId(3),
+      title: 'do homework',
+    },
+  ];
+
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos") ?? JSON.stringify(initialTodos)));
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
@@ -18,7 +35,11 @@ function App() {
     if (inputValue == '') {
       return;
     } else {
-      setTodos([...todos, `${inputValue}`]);
+      let newTask = {
+        id: generateId(initialTodos.length),
+        title: inputValue,
+      }
+      setTodos([...todos, newTask]);
       setInputValue('');
     }
   }
@@ -26,9 +47,9 @@ function App() {
   return (
     <>
       <div>
-        {todos.map((el: string, index: number) => {
+        {todos.map(({ id, title }: {id: number; title: string}) => {
           return (
-            <Item key={index} el={el}/>
+            <Item key={id} el={title}/>
           )
         })}
       </div>
