@@ -1,6 +1,6 @@
-function Item({el}:any) {
+function Item({title}: {title: string}) {
   return (
-    <div>{el}</div>
+    <div>{title}</div>
   )
 }
 

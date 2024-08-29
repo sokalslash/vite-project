@@ -49,7 +49,7 @@ function App() {
       <div>
         {todos.map(({ id, title }: {id: number; title: string}) => {
           return (
-            <Item key={id} el={title}/>
+            <Item key={id} title={title}/>
           )
         })}
       </div>
