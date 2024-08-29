@@ -34,7 +34,7 @@ function App() {
       </div>
 
       <form>
-        <input type='text' placeholder='Ввести задачу' value={inputValue} onChange={(e) => setInputValue((inputValue) => inputValue = e.target.value)}></input>
+        <input type='text' placeholder='Ввести задачу' value={inputValue} onChange={(e) => setInputValue(e.target.value)}></input>
         <button type='submit' onClick={addTodoHandler}>Добавить</button>
       </form>
 
