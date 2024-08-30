@@ -1,28 +1,10 @@
 import { useState, useEffect } from 'react'
+import { generateId } from './utils';
 import Item from './Item.tsx'
 import './App.css'
 
-function App() {
-  function generateId(num: number): number {
-    return Math.random() + num;
-  }
-
-  const initialTodos = [
-    {
-      id: generateId(1),
-      title: 'read react documentation',
-    },
-    {
-      id: generateId(2),
-      title: 'reat vite documentation',
-    },
-    {
-      id: generateId(3),
-      title: 'do homework',
-    },
-  ];
-
-  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos") ?? JSON.stringify(initialTodos)));
+function App({ tasks }: any) {
+  const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos") ?? JSON.stringify(tasks)));
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
@@ -36,7 +18,7 @@ function App() {
       return;
     } else {
       let newTask = {
-        id: generateId(initialTodos.length),
+        id: generateId(tasks.length),
         title: inputValue,
       }
       setTodos([...todos, newTask]);
