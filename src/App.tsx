@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { generateId } from './utils';
+import { Task } from './types.ts'
 import Item from './Item.tsx'
 import './App.css'
 
-function App({ tasks }: any) {
+function App({ tasks }: { tasks: Task[]}) {
   const [todos, setTodos] = useState(JSON.parse(localStorage.getItem("todos") ?? JSON.stringify(tasks)));
   const [inputValue, setInputValue] = useState('');
 
