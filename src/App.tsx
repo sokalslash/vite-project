@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, MouseEvent } from 'react'
 import { generateId } from './utils';
 import { Task } from './types.ts'
 import Item from './Item.tsx'
@@ -9,10 +9,12 @@ function App({ tasks }: { tasks: Task[]}) {
   const [inputValue, setInputValue] = useState('');
 
   useEffect(() => {
+    console.log('mouting');
     localStorage.setItem('todos', JSON.stringify(todos));
+    return console.log('unmouting');
   }, [todos]);
 
-  function addTodoHandler(e: any) {
+  function addTodoHandler(e: MouseEvent | KeyboardEvent) {
     e.preventDefault();
 
     if (inputValue == '') {
@@ -27,12 +29,17 @@ function App({ tasks }: { tasks: Task[]}) {
     }
   }
 
+  function deleteHandler(id: number) {
+    console.log(id);
+    setTodos((prevState: Task[]) => prevState.filter((task: Task) => task.id !== id));
+  }
+
   return (
     <>
       <div>
         {todos.map(({ id, title }: {id: number; title: string}) => {
           return (
-            <Item key={id} title={title}/>
+            <Item key={id} id={id} title={title} onClick={deleteHandler} />
           )
         })}
       </div>
